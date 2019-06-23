@@ -1,0 +1,303 @@
+package converter;
+
+import java.util.Scanner;
+import java.util.concurrent.SynchronousQueue;
+
+ class ReadInput{
+     Scanner scanner = new Scanner(System.in);
+     String s1;
+
+     public String getS1() {
+         try {
+             s1=scanner.nextLine();
+         }catch (Exception e){
+             System.out.println(e);
+         }
+
+         return s1;
+     }
+ }
+public class Main {
+
+
+    public static void main(String[] args) {
+ReadInput stroka=new ReadInput();
+        String s1=stroka.getS1();
+
+        int length = s1.length();
+        char[] data = s1.toCharArray();
+        boolean workOrNot=true;
+        boolean verify=true;
+        int sisSc1=-1;
+        int sisSc2=-1;
+        for (int i = 0; i < data.length; ++i) {
+            if (!Character.isDigit(data[i])) {
+                verify=false;
+                break;
+            }
+        }
+        if(verify){
+            sisSc1=Integer.parseInt(s1);
+            if(sisSc1<1 || sisSc1> 36){
+                //System.out.println("error : Требуется целое число от 1 до 36 включительно");
+                workOrNot=false;
+            }
+        }
+        else {
+            //System.out.println("error : Требуется целое число");
+            //System.exit(0);
+            workOrNot=false;
+        }
+        s1=s1=stroka.getS1();
+        length = s1.length();
+        char[] data1 = s1.toCharArray();
+        int punkt=0;
+        String number = null;
+        for (int i = 0; i < data1.length; ++i) {
+            if(data1[i]=='.'){
+                punkt++;
+            }
+
+        }
+
+        if(punkt==1) {
+            if (s1.split("\\.")[0].matches("[^a-zA-Z0-9]+") && s1.split("\\.")[1].matches("[^a-zA-Z0-9]+")) {
+                verify = false;
+            }
+            else {
+                number=s1;
+            }
+        } else if (punkt==0) {
+                number = s1;
+            } else {
+                //System.out.println("error : Требуется вещественное число");
+                workOrNot = false;
+            }
+
+        //sisSc2
+        s1=stroka.getS1();
+        length = s1.length();
+        char[] data2=s1.toCharArray();
+        for (int i = 0; i < data2.length; ++i) {
+            if (!Character.isDigit(data2[i])) {
+                verify=false;
+                break;
+            }
+        }
+        if(verify){
+            sisSc2=Integer.parseInt(s1);
+            if(sisSc2<1 || sisSc2> 36){
+              //  System.out.println("error : Требуется целое число от 1 до 36 включительно");
+                workOrNot=false;
+            }
+        }
+        else {
+            //System.out.println("error : Требуется целое число");
+            workOrNot=false;
+        }
+    if(workOrNot) {
+        boolean drobi = false;
+        long viv = 0L;
+        long zelCH;
+        double drobCh = 0;
+        double sumD;
+        String dr = null;
+
+        //String vivStr;
+        if (sisSc1 == 1) {
+            viv = number.length();
+        } else {
+            if (number.indexOf(".") == -1) {
+                viv = Long.parseLong(number, sisSc1);
+            } else {
+                drobi = true;
+                String[] spr = number.split("\\.");
+                viv = Long.parseLong(number.split("\\.")[0], sisSc1);
+                char[] drob = spr[1].toCharArray();
+                //drobCH=Double.parseDouble(number.split(".")[1]);
+                int e = 1;
+                for (char item : drob
+                ) {
+                    sumD = (double) (Character.getNumericValue(item));
+                    drobCh += sumD * Math.pow(sisSc1, -e);
+                    e++;
+                }
+                drob = Double.toString(drobCh).split("\\.")[1].toCharArray();
+                int k = 0;
+                char res[] = new char[7];
+                double zz = drobCh;
+                for (int i = 0; i < 5; i++) {
+                    drobCh *= sisSc2;
+                    e = (int) drobCh;
+                    drobCh -= e;
+                    if (e > 9) {
+                        res[i] = convertNumbToChar(e);
+                    } else {
+                        res[i] = (char) (e + '0');
+                    }
+
+                }
+                dr = new String(res);
+                //conv(zelCH,sisSc2);
+                //System.out.println("."+resDr);
+
+            }
+        }
+        if (sisSc2 == 1) {
+            for (int i = 0; i < viv; i++) {
+                System.out.print(1);
+            }
+        } else
+            conv(viv, sisSc2, dr);
+    } else {
+        System.out.println("Еrror : input error");
+    }
+
+    }
+
+    static char convertNumbToChar(long number) {
+        switch ((int)number) {
+            case 0: return '0';
+            case 1: return '1';
+            case 2: return '2';
+            case 3: return '3';
+            case 4: return '4';
+            case 5: return '5';
+            case 6: return '6';
+            case 7: return '7';
+            case 8: return '8';
+            case 9: return '9';
+            case 10: return 'a';
+            case 11: return 'b';
+            case 12: return 'c';
+            case 13: return 'd';
+            case 14: return 'e';
+            case 15: return 'f';
+            case 16: return 'g';
+            case 17: return 'h';
+            case 18: return 'i';
+            case 19: return 'j';
+            case 20: return 'k';
+            case 21: return 'l';
+            case 22: return 'm';
+            case 23: return 'n';
+            case 24: return 'o';
+            case 25: return 'p';
+            case 26: return 'q';
+            case 27: return 'r';
+            case 28: return 's';
+            case 29: return 't';
+            case 30: return 'u';
+            case 31: return 'v';
+            case 32: return 'w';
+            case 33: return 'x';
+            case 34: return 'y';
+            case 35: return 'z';
+
+        }
+        return '$';
+    }
+    static int convertCharToNumber(char a){
+        switch (a){
+            case '0': return 0;
+            case '1': return 1;
+            case '2': return 2;
+            case '3': return 3;
+            case '4': return 4;
+            case '5': return 5;
+            case '6': return 6;
+            case '7': return 7;
+            case '8': return 8;
+            case '9': return 9;
+            case '\u0000': return 0;
+            case '\u0001': return 1;
+            case '\u0002': return 2;
+            case '\u0003': return 3;
+            case '\u0004': return 4;
+            case '\u0005': return 5;
+            case '\u0006': return 6;
+            case '\u0007': return 7;
+            case '\u0008': return 8;
+            case '\u0009': return 9;
+            case 'a': return 10;
+            case 'b': return 11;
+            case 'c': return 12;
+            case 'd': return 13;
+            case 'e': return 14;
+            case 'f': return 15;
+            case 'g': return 16;
+            case 'h': return 17;
+            case 'i': return 18;
+            case 'j': return 19;
+            case 'k': return 20;
+            case 'l': return 21;
+            case 'm': return 22;
+            case 'n': return 23;
+            case 'o': return 24;
+            case 'p': return 25;
+            case 'q': return 26;
+            case 'r': return 27;
+            case 's': return 28;
+            case 't': return 29;
+            case 'u': return 30;
+            case 'v': return 31;
+            case 'w': return 32;
+            case 'x': return 33;
+            case 'y': return 34;
+            case 'z': return 35;
+
+        }
+        return -1;
+    }
+
+    public static void conv(long number10, int sisSc, String dr) {
+
+        char []toRadixCh=new char[10000];
+        if(number10!=0L) {
+            String convert = new String(convert10ToRadix(number10, toRadixCh,0, sisSc));
+            int toRadix=convert.indexOf('$');
+            char[] baza8 = new char[toRadix];
+            int k = 0;
+            for (int j = toRadix-1; j >= 0; j--) {
+                baza8[k++] = toRadixCh[j];
+            }
+            // baza8[0]=0;
+
+            for (int i = 0; i <= toRadix-1; i++) {
+                System.out.print(baza8[i]);
+            }
+            if(dr!=null) {
+                System.out.print("." + dr);
+            }
+        }
+        else if(dr!=null){
+            System.out.print(number10+"."+dr);
+        }
+        else{
+
+
+                System.out.println(number10);
+
+        }
+
+    }
+
+
+    static char[] convert10ToRadix(long number, char[] str, int i, int radix){
+
+        if(number==0) {
+            str[i]='$';
+            return str;
+        }
+        else {
+            long t=number % radix;
+            str[i++]=convertNumbToChar(t);
+            number=number/radix;
+            convert10ToRadix(number, str, i, radix);
+            return str;
+
+        }
+    }
+
+}
+
